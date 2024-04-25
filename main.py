@@ -2,25 +2,14 @@ from time import sleep
 from planes import Planes
 import threading
 import random
-
-planes = Planes()
+from planeManager import PlaneManager
 
 airplanes = []
+planes = Planes()
+planeManager = PlaneManager(airplanes)
 
-def createPlanes():
-    while True:
-        if len(airplanes) < 20:
-            airplanes.append(planes.createPlane())
-            sleep(random.randint(1, 10))
-
-def updateElapsedTime():
-    while True:
-        for plane in airplanes:
-            plane['waiting_time'] += 1
-            sleep(1)
-
-threading.Thread(target=createPlanes).start()
-threading.Thread(target=updateElapsedTime).start()
+threading.Thread(target=planeManager.createPlanes).start()
+threading.Thread(target=planeManager.updateElapsedTime).start()
 
 while True:
     print(airplanes)
