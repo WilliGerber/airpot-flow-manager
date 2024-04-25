@@ -1,21 +1,27 @@
-# Abrir o arquivo de texto no modo de leitura
-
 from time import sleep
+from planes import Planes
+import threading
+import random
 
+planes = Planes()
 
-airplanesReady =   [
-                        {"code": 918390, "send_signal":"00:00:00 04-11-2024"},
-                        {"code": 293201, "send_signal":"01:00:00 04-11-2024"},
-                        {"code": 883821, "send_signal":"02:00:00 04-11-2024"}
-                    ]
+airplanes = []
 
+def createPlanes():
+    while True:
+        if len(airplanes) < 20:
+            airplanes.append(planes.createPlane())
+            sleep(random.randint(1, 10))
 
-for airplane in airplanesReady:
-    airplane['waitingTime'] = 0
+def updateElapsedTime():
+    while True:
+        for plane in airplanes:
+            plane['waiting_time'] += 1
+            sleep(1)
+
+threading.Thread(target=createPlanes).start()
+threading.Thread(target=updateElapsedTime).start()
 
 while True:
-    for airplane in airplanesReady:
-        airplane['waitingTime'] += 1
-        print(airplane['waitingTime'])
+    print(airplanes)
     sleep(1)
-    print(airplanesReady)
