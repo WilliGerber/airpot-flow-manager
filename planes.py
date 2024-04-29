@@ -11,11 +11,11 @@ class Planes(object):
         limit_1 = 75
         limit_2 = limit_1 + 24
         if number <= limit_1:
-            return 1
-        elif number <= limit_2:
             return 2
-        else:
+        elif number <= limit_2:
             return 3
+        else:
+            return 5
             
     def choose_takeoff_or_landing(self):
         number = random.randint(1, 2)
@@ -32,6 +32,7 @@ class Planes(object):
             'waiting_time': 0,
             'urgency': self.randomUrgency(),
             'type': self.choose_takeoff_or_landing(),
-            'status': False
+            'status': False,
+            'priority': 0
         }
 
