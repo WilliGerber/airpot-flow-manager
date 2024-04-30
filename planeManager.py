@@ -42,13 +42,13 @@ class PlaneManager(object):
                 else:
                     tdl = 2
                 plane['priority'] = plane['waiting_time']*plane['urgency']*tdl
-
-        authorized_plane = sorted(airplanes_to_priorize, key=lambda plane: plane['priority'], reverse=True)[0]
+        if airplanes_to_priorize:
+            authorized_plane = sorted(airplanes_to_priorize, key=lambda plane: plane['priority'], reverse=True)[0]
         
         for plane in self.airplanes:
             if plane['code'] == authorized_plane['code']:
                 plane['status'] = True
-        
+        print(authorized_plane)
         return authorized_plane
 
 
@@ -65,7 +65,7 @@ class PlaneManager(object):
             else:
                 self.status.landingStripBusy.clear()
                 print('landingStripBusy cleared')
-            
+            print('aqui')
             sleep(1)
         
     def clear_airplane_status(self):

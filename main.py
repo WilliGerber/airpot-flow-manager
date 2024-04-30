@@ -32,5 +32,8 @@ while True:
             sleep(1)
         if not status.landingStripBusy.is_set():
             cleared_airplane = planeManager.calculate_priority()
-            print(cleared_airplane)
-        sleep(10)
+        sleep(1)
+        print(  f'landingStripBusy {status.landingStripBusy.is_set()}, '
+                f'free_dock_percentage0: {status.free_dock_percentage0.is_set()}, '
+                f'free_dock_percentage40 {status.free_dock_percentage40.is_set()}, ')
+    print('Error: DEADLOCK achieved. Review Code')

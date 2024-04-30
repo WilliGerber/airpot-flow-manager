@@ -26,7 +26,7 @@ class Planes(object):
             return "Landing"
             
     def createPlane(self):
-        return {
+        plane =  {
             'code': random.randint(1000, 99999),
             'arrival_time': datetime.datetime.now(),
             'waiting_time': 0,
@@ -35,4 +35,6 @@ class Planes(object):
             'status': False,
             'priority': 0
         }
+        print(plane)
+        return plane
 
