@@ -25,6 +25,7 @@ class PlaneManager(object):
                 sleep(1)
 
     def calculate_priority(self):
+        print("calculate_priority started")
         # P (prioridade) = T (tempo de espera) x U (peso urgencia) x TDL (taxa docas livres)
         airplanes_to_priorize = self.airplanes
         if list(filter(lambda plane: plane['urgency'] == 5, self.airplanes)):
@@ -49,11 +50,14 @@ class PlaneManager(object):
             if plane['code'] == authorized_plane['code']:
                 plane['status'] = True
         print(authorized_plane)
+        print("calculate_priority finished")
+        
         return authorized_plane
 
 
     def check_landing_strip_status(self):
         while True:
+            print("check_landing_strip_status started")
             self.airplanes_with_status = list(filter(lambda plane: plane['status'] == True, self.airplanes))
             if len(self.airplanes_with_status) == 1:
                 self.status.landingStripBusy.set()
@@ -62,13 +66,16 @@ class PlaneManager(object):
                 self.clear_airplane_status()
             elif len(self.airplanes_with_status) > 1:
                 self.status.deadlock.set()
+                for plane in self.airplanes_with_status:
+                    pass
             else:
                 self.status.landingStripBusy.clear()
                 print('landingStripBusy cleared')
-            print('aqui')
             sleep(1)
+            print("check_landing_strip_status finished")
         
     def clear_airplane_status(self):
+        print("clear_airplane_status started")
         if self.status.deadlock.is_set():
             pass
         else:
@@ -76,7 +83,7 @@ class PlaneManager(object):
                 if plane['code'] == self.airplanes_with_status[0]['code']:
                     self.airplanes.remove(plane)
                     print(f'Removed plane: {plane["code"]}')
-
+        print("clear_airplane_status finished")
 
     def calculate_free_dock_percentage(self):
         while True:
