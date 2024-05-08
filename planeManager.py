@@ -22,7 +22,7 @@ class PlaneManager(object):
         while True:
             for plane in self.airplanes:
                 plane['waiting_time'] += 1
-                sleep(1)
+            sleep(1)
 
     def calculate_priority(self):
         print("calculate_priority started")
@@ -49,6 +49,7 @@ class PlaneManager(object):
         for plane in self.airplanes:
             if plane['code'] == authorized_plane['code']:
                 plane['status'] = True
+
         print(authorized_plane)
         print("calculate_priority finished")
         
@@ -64,10 +65,6 @@ class PlaneManager(object):
                 print('landingStripBusy seted')
                 sleep(random.randint(10, 20))
                 self.clear_airplane_status()
-            elif len(self.airplanes_with_status) > 1:
-                self.status.deadlock.set()
-                for plane in self.airplanes_with_status:
-                    pass
             else:
                 self.status.landingStripBusy.clear()
                 print('landingStripBusy cleared')
