@@ -42,7 +42,7 @@ for thread in threads:
     thread.start()
 
 while True:
-    while not status.deadlock.is_set():
+    while True:
         if status.landingStripBusy.is_set():
             sleep(1)
         elif not status.landingStripBusy.is_set():
@@ -51,5 +51,4 @@ while True:
         print(  f'landingStripBusy {status.landingStripBusy.is_set()}, '
                 f'free_dock_percentage0: {status.free_dock_percentage0.is_set()}, '
                 f'free_dock_percentage40: {status.free_dock_percentage40.is_set()} ')
-    print('Error: DEADLOCK achieved.')
     
